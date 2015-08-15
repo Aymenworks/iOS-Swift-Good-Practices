@@ -21,7 +21,23 @@ by
 ```
 
 - Use **extension** when conforming to some protocol ( uitableview, printable, .. ) to keep a well organized code unless if that's its role.
-  Example :   I make directly conform my PersistencyManager class with the NSCoding protocol )
+
+```swift
+// MARK: - TableView Delegate -
+
+extension HomeViewController: UITableViewDataSource {
+
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 5
+  }
+
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 1
+  }
+
+  // etc.
+}
+```  
 
 - Use **let** until Xcode yell so you can replace it with **var**
 
