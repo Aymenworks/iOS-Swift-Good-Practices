@@ -5,9 +5,20 @@ You'll find there some good practices/hints I think are very relevant and that w
 You can also visit my personal swift code snippets [there](https://github.com/Aymenworks/Swift-Personal-Snippets).
 ## Good practices in Swift and iOS
 
-- Use the more possible the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically
+- Use the more possible the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically.
+You can for example replace :
+```swift
+self.debtView.layer.maskToBounds = true
+self.debtView.layer.cornerRadius = 5.0
+```
+by
+
+<img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
 
 - Use **pragma mark** to organise your code
+```swift
+// MARK: - UITableViewDataSource Delegate -
+```
 
 - Use **extension** when conforming to some protocol ( uitableview, printable, .. ) to keep a well organized code unless if that's its role.
   Example :   I make directly conform my PersistencyManager class with the NSCoding protocol )
