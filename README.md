@@ -2,7 +2,6 @@
 
 You'll find there some good practices/hints I think are very relevant and that was good for me : They can come from people I worked with, from courses/tutorials I followed, and also from others guidelines and good practices authors.
 
-You can also visit my personal swift code snippets [there](https://github.com/Aymenworks/Swift-Personal-Snippets).
 ## Good practices in Swift and iOS
 
 - Use the more possible the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically.
