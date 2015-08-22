@@ -29,6 +29,8 @@ let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(self
 Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
 With Swift, struct have constructors with parameters, so no need to use external functions.
 
+- Use **private** and **let** when possible. What I do is to make my properties/functions **private** and **let** by default and when the compiler yell, I change it :-)
+
 - Use **pragma mark** to organise your code
 ```swift
 // MARK: - UITableViewDataSource Delegate -
