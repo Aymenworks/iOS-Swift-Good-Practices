@@ -15,6 +15,20 @@ by
 
 <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
 
+- Use the native Swift struct initializers rather than use CGGeometry functions.
+
+So replace
+```swift
+let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.size.width / 2, self.bounds.size.height))
+```
+by
+```swift
+let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(self.bounds) / 2, height: CGRectGetHeight(self.bounds)))
+```
+
+Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
+With Swift, struct have constructors with parameters, so no need to use external functions.
+
 - Use **pragma mark** to organise your code
 ```swift
 // MARK: - UITableViewDataSource Delegate -
