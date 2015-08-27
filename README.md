@@ -104,19 +104,6 @@ From Apple's CGGeometry reference:
 
 ## Good practices and hint in iOS Project in general
 
-- You can create **snippet** to void you to write some redendant function like the methods from the UITableViewDataSource for example
-
-- Don't forget to use a versionning system ( git/github, svn, .. )
-
-- Don't forget to write good commits, examples (IMP : improvment) :
-  - [ADD] UIAccessibility on the Walkthrough view to have a better user experience for blind people
-  - [IMP] I replaced the customSort(..) function because the native sort(..) function already had this functionanlity
-  - [FIX] Fixed the wording problem about the wrong title view that have been signaled on the #2193 ticket number
-
-- You can generate some good html documentations using [jazzy](https://github.com/realm/jazzy)
-
-- You can create on your finder the same architecture that appears on your Xcode project using [synx](https://github.com/venmo/synx)
-
 - You can consider making **TODO/FIXME as warning**, sometimes that helps !
 
 - Having a clear application architecuture is good, having a clear/reusable code is awesome. So you better be documented about **design patterns** :
