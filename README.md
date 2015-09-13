@@ -4,16 +4,6 @@ You'll find there some good practices/hints I think are very relevant and that w
 
 ## Good practices in Swift and iOS
 
-- Use the more possible the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically.
-You can for example replace :
-```swift
-self.debtView.layer.maskToBounds = true
-self.debtView.layer.cornerRadius = 5.0
-```
-by
-
-<img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
-
 - Use the native Swift struct initializers rather than use CGGeometry functions.
 
 So replace
@@ -101,6 +91,18 @@ func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPat
 From Apple's CGGeometry reference:
 >All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
 
+## Things to know about
+
+- You can use the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically.
+
+So, you can for example replace :
+```swift
+self.debtView.layer.maskToBounds = true
+self.debtView.layer.cornerRadius = 5.0
+```
+by
+
+<img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
 
 ## Good practices and hint in iOS Project in general
 
