@@ -8,11 +8,11 @@ You'll find there some good practices/hints I think are very relevant and that w
 
 So replace
 ```swift
-let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.size.width / 2, self.bounds.size.height))
+let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
 ```
 by
 ```swift
-let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(self.bounds) / 2, height: CGRectGetHeight(self.bounds)))
+let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
 ```
 
 Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
@@ -87,9 +87,21 @@ func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPat
 
 - When clearing out your UILabel, put a " " (space) in there, not nil or "" (empty string), otherwise your UILabel will shrink down vertically, shifting your UI around.
 
-- When accessing the x, y, width, or height of a CGRect, always use the CGGeometryfunctions instead of direct struct member access.
+- When accessing the x, y, width, or height of a CGRect, prefer using rect.width, rect.minY, etc.. that are swift extension and that by default standardize values instead of direct struct member access.
 From Apple's CGGeometry reference:
 >All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
+
+For example :
+
+```swift
+let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
+
+rect.size.width // return -40 // Not good, negative value
+rect.width // return 40 // OK
+
+rect.origin.y // return 0.0 // Not OK
+rect.minY // return -40.0 // OK
+```
 
 ## Things to know about
 
