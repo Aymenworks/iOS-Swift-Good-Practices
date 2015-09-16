@@ -26,29 +26,24 @@ From Apple Documentation
 
 - Use **private** and **let** when possible. What I do is to make my properties/functions **private** and **let** by default and when the compiler yell, I change it :-)
 
-- Use **pragma mark** to organise your code
-```swift
-// MARK: - UITableViewDataSource Delegate -
-```
-
 - Use **extension** when conforming to some protocol ( uitableview, printable, .. ) to keep a well organized code unless if that's its role.
 
-```swift
-// MARK: - TableView Delegate -
+  ```swift
+  // MARK: - TableView Delegate -
 
-extension HomeViewController: UITableViewDataSource {
+  extension HomeViewController: UITableViewDataSource {
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return 5
+    }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+      return 1
+    }
+
+    // etc.
   }
-
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
-  }
-
-  // etc.
-}
-```  
+  ```  
 
 - Use **let** until Xcode yell so you can replace it with **var**
 
@@ -74,9 +69,9 @@ if number >=0 && number <= 100
 - UITableView :
   - Even if there are 10000 rows, only the visible rows are UITableViewCell, so that means that those rows will be reusable for the following rows.
   - Use
-  ```swift
-func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> AnyObject
-```
+    ```swift
+  func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> AnyObject
+  ```
   It takes care to reuse the row or making a copy of one of your   prototypes    from your storyboard ( so you need to have a reuseIdentifier for your prototype, because you can have not only one    row prototype )
   - Be aware si you do network works with the cells : When the cell appear, you want to fetch data by downloading an image or data, if you scroll and get back again, and the http request just finished, you'll set the data on a cell different than the cell because the cell are reusable, so when scrolling it will reuse the cell to display others rows informations
 - Where can you store your reuse identifier for your cells ?
@@ -99,30 +94,30 @@ From Apple's CGGeometry reference:
 
 For example :
 
-```swift
-let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
+  ```swift
+  let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
 
-rect.size.width // return -40 // Not good, negative value
-rect.width // return 40 // OK
+  rect.size.width // return -40 // Not good, negative value
+  rect.width // return 40 // OK
 
-rect.origin.y // return 0.0 // Not OK
-rect.minY // return -40.0 // OK
-```
+  rect.origin.y // return 0.0 // Not OK
+  rect.minY // return -40.0 // OK
+  ```
 
 ## Things to know about
 
 - You can use the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically.
 
    So, you can for example replace :
-```swift
-self.debtView.layer.maskToBounds = true
-self.debtView.layer.cornerRadius = 5.0
-```
-by
+  ```swift
+  self.debtView.layer.maskToBounds = true
+  self.debtView.layer.cornerRadius = 5.0
+  ```
+  by
 
-   <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
+     <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
 
-- You can add variable observers in any types of variable : Global, in class, local..
+- You can add variable observers in any types of variable, even __Global__ and __local__.
 
    Let's see an example :
 
@@ -153,6 +148,12 @@ by
   ```
 
 ## Good practices and hint in iOS Project in general
+
+
+- Use **pragma mark** to organise your code
+   ```swift
+// MARK: - UITableViewDataSource Delegate -
+```
 
 - You can consider making **TODO/FIXME as warning**, sometimes that helps !
 
