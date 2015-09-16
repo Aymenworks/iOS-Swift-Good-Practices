@@ -19,12 +19,23 @@ You'll find there some good practices/hints I think are very relevant and that w
   With Swift, struct have constructors with parameters, so no need to use external functions.
 
 - You don't need to remove observer in deinit function when iOS > 9.0 anymore
-From Apple Documentation
+
+   From Apple Documentation
  > In OS X 10.11 and iOS 9.0 NSNotificationCenter and NSDistributedNotificationCenter will no longer send notifications to registered observers that may be deallocated[...] This means that observers are not required to un-register in their deallocation method.
 
 
 
 - Use **private** and **let** when possible. What I do is to make my properties/functions **private** and **let** by default and when the compiler yell, I change it :-)
+
+- To check if a number is between a range, **don't do**
+ ```swift
+if number >=0 && number <= 100
+```
+ **Use** range and news operators **instead** :
+ ```swift
+ if 0...100 ~= number
+ ```
+
 
 - Use **extension** when conforming to some protocol ( uitableview, printable, .. ) to keep a well organized code unless if that's its role.
 
@@ -46,15 +57,6 @@ From Apple Documentation
   ```  
 
 - Use **let** until Xcode yell so you can replace it with **var**
-
-- To check if a number is between a range, **don't do**
- ```swift
-if number >=0 && number <= 100
-```
- **Use** range and news operators **instead** :
- ```swift
- if 0...100 ~= number
- ```
 
 - Don't do things that need frame/bounds coordinate in the viewDidLoad, because that's officialy setted on the viewWillAppear and if you try to do it before, you'll receive some informations, yes, but maybe not the last and the most relevant, because it can change after the viewDidLoad ,for example when its checking if the iPhone in on the Portrait or Landscape, if there is navigation bar, and things like that. So **don't make code that is geometry-dependent here.**
 
