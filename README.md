@@ -7,16 +7,16 @@ You'll find there some good practices/hints I think are very relevant and that w
 - Use the native Swift struct initializers rather than use CGGeometry functions.
 
    So replace
-```swift
-let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
-```
-by
-```swift
-let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
-```
+   ```swift
+  let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
+  ```
+  by
+  ```swift
+  let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
+  ```
 
-   Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
-With Swift, struct have constructors with parameters, so no need to use external functions.
+     Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
+  With Swift, struct have constructors with parameters, so no need to use external functions.
 
 - You don't need to remove observer in deinit function when iOS > 9.0 anymore
 From Apple Documentation
@@ -113,14 +113,44 @@ rect.minY // return -40.0 // OK
 
 - You can use the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically.
 
-So, you can for example replace :
+   So, you can for example replace :
 ```swift
 self.debtView.layer.maskToBounds = true
 self.debtView.layer.cornerRadius = 5.0
 ```
 by
 
-<img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
+   <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
+
+- You can add variable observers in any types of variable : Global, in class, local..
+
+   Let's see an example :
+
+  ```swift
+  var numberOfPerson = 0 {
+    didSet {
+    // Do something
+    }
+  }
+
+  class Person {
+    var name = "Anonyme" {
+      didSet {
+        // Do something else
+      }
+    }
+
+    func showResume() {
+      var resume = "" {
+        didSet {
+          // Do what you need to do
+        }
+      }
+
+      // ...
+    }
+  }
+  ```
 
 ## Good practices and hint in iOS Project in general
 
