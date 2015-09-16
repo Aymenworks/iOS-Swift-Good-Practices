@@ -6,7 +6,7 @@ You'll find there some good practices/hints I think are very relevant and that w
 
 - Use the native Swift struct initializers rather than use CGGeometry functions.
 
-So replace
+   So replace
 ```swift
 let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
 ```
@@ -15,8 +15,14 @@ by
 let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
 ```
 
-Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
+   Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
 With Swift, struct have constructors with parameters, so no need to use external functions.
+
+- You don't need to remove observer in deinit function when iOS > 9.0 anymore
+From Apple Documentation
+ > In OS X 10.11 and iOS 9.0 NSNotificationCenter and NSDistributedNotificationCenter will no longer send notifications to registered observers that may be deallocated[...] This means that observers are not required to un-register in their deallocation method.
+
+
 
 - Use **private** and **let** when possible. What I do is to make my properties/functions **private** and **let** by default and when the compiler yell, I change it :-)
 
