@@ -6,13 +6,13 @@ You'll find there some good practices/hints I think are very relevant and that w
 
 * [Interesting things to know about](#interesting-things-to-know-about)
   * [Xcode UI Testing](#xcode-ui-testing)
-    * [Wait for an object to appear ( ex : animation )](#wait-for-an-object-to-appear-(-ex-:-animation-))
+    * [Wait for an object to appear if animations](#wait-for-an-object-to-appear-if-animations)
     * [Tap at specific coordinates](#tap-at-specific-coordinates)
     * [Global and local variable observers](#global-and-local-variable-observers)
  * [User Defined Runtime Attribute](#user-defined-runtime-attribute)
-* [Good practices in Swift and iOS](#good-practices-in-swift-and-iOS)
+* [Good practices in Swift and iOS](#good-practices-in-swift-and-ios)
   * [Native Swift struct initializers](#native-swift-struct-initializers)
-  * [No need to remove observer when iOS > 9.0](#no-need-to-remove-observer-when-iOS->-9.0)
+  * [No need to remove observer](#no-need-to-remove-observer)
   * [Range operator](#range-operator)
   * [Extensions](#extensions)
   * [Tips for using let](#tips-for-using-let)
@@ -24,7 +24,7 @@ You'll find there some good practices/hints I think are very relevant and that w
 
 ### Xcode UI Testing
  
-#### Wait for an object to appear ( ex : animation )
+#### Wait for an object to appear if animations
 
   At the beginning, I encountered issues when checking if a particular button existed or not,
   simply because it was faded in ( animation ) and so not directly present in the view.
@@ -115,7 +115,7 @@ Use the native Swift struct initializers rather than use CGGeometry functions.
   Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
   With Swift, struct have constructors with parameters, so no need to use external functions.
 
-#### No need to remove observer when iOS > 9.0
+#### No need to remove observer
 You don't need to remove observer in deinit function when iOS > 9.0 anymore
 
    From Apple Documentation
