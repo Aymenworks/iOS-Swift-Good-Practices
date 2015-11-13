@@ -9,7 +9,7 @@ You'll find there some good practices/hints I think are very relevant and that w
 #### Wait for an object to appear ( ex : animation )
 
   At the beginning, I encountered issues when checking if a particular button existed or not,
-  simply because it was faded in ( **animation ) and so not directly present in the view.
+  simply because it was faded in ( animation ) and so not directly present in the view.
   One interesting solution I found is this one :
 
   ```swift
