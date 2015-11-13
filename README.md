@@ -4,21 +4,21 @@ You'll find there some good practices/hints I think are very relevant and that w
 
 ## Table of Contents 
 
-* [Interesting things to know about](#)
+* [Interesting things to know about](#interesting-things-to-know-about)
   * [Xcode UI Testing](#xcode-ui-testing)
-    * [Wait for an object to appear ( ex : animation )](#)
-    * [Tap at specific coordinates](#)
-    * [Global and local variable observers](#)
- * [User Defined Runtime Attribute](#)
-* [Good practices in Swift and iOS](#)
-  * [Native Swift struct initializers](#)
-  * [No need to remove observer when iOS > 9.0](#)
-  * [Range operator](#)
-  * [Extensions](#)
-  * [Tips for using let](#)
-  * [Typealias for a argument/return type](#)
-  * [CGRect and negative values](#)
-* [Good practices and hint in iOS Project in general](#)
+    * [Wait for an object to appear ( ex : animation )](#wait-for-an-object-to-appear-(-ex-:-animation-))
+    * [Tap at specific coordinates](#tap-at-specific-coordinates)
+    * [Global and local variable observers](#global-and-local-variable-observers)
+ * [User Defined Runtime Attribute](#user-defined-runtime-attribute)
+* [Good practices in Swift and iOS](#good-practices-in-swift-and-iOS)
+  * [Native Swift struct initializers](#native-swift-struct-initializers)
+  * [No need to remove observer when iOS > 9.0](#no-need-to-remove-observer-when-iOS->-9.0)
+  * [Range operator](#range-operator)
+  * [Extensions](#extensions)
+  * [Tips for using let](#tips-for-using-let)
+  * [Typealias for a argument/return type](#typealias-for-a-argument/return-type)
+  * [CGRect and negative values](#cgrect-and-negative-values)
+* [Good practices and hint in iOS Project in general](#good-practices-and-hint-in-ios-project-in-general)
 	
 ## Interesting things to know about
 
