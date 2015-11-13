@@ -68,12 +68,14 @@ You can add variable observers in any types of variable, even __Global__ and __l
 ### User Defined Runtime Attribute
   You can use the from your storyboard to init some properties of your object instead of doing it programmatically.
 
-   So, you can for example replace :
-    ```swift
-    self.debtView.layer.maskToBounds = true
-    self.debtView.layer.cornerRadius = 5.0
-    ```
-    by
+   So, you can for example, replace :
+   
+   ```swift
+   self.debtView.layer.maskToBounds = true
+   self.debtView.layer.cornerRadius = 5.0
+   ```
+   
+   by
 
    <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
 
