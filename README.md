@@ -2,125 +2,37 @@
 
 You'll find there some good practices/hints I think are very relevant and that was good for me : They can come from people I worked with, from courses/tutorials I followed, and also from others guidelines and good practices authors.
 
-## Good practices in Swift and iOS
+## Interesting things to know about
 
-- Use the native Swift struct initializers rather than use CGGeometry functions.
+### Xcode UI Testing
+ #### Wait for an object to appear ( ex : animation )
 
-   So replace
+    At the beginning, I encountered issues when checking if a particular button existed or not,
+    simply because it was faded in ( **animation ) and so not directly present in the view.
+    One interesting solution I found is this one :
+
+     ```swift
+     let enableButton = app.buttons[NSLocalizedString("Enable", comment: "foo")]
+     expectationForPredicate(NSPredicate(format: "exists == true"), evaluatedWithObject: enableButton, handler: nil)
+    waitForExpectationsWithTimeout(3, handler: nil)
+      ```
+
+      It'll wait for 3 seconds until the predicate is true (in our case, the button exists, so until the button appear).
+      After the elapsed time, of it's not true, it'll execute the XCTAssert `exists == true`.
+
+  #### Tap at specific coordinates
+
+   <img src="./assets/uitest-coordinates.png" alt="Runtime Attribute Storyboard" width="250"/>
+
+   Clicking on the text button redirect me another view, and clicking on the square check it.
+   What I wanted to do was just checking the button, so just tapping on the little square on the left. I did it with :
+
    ```swift
-  let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
-  ```
-  by
-  ```swift
-  let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
+   let checkButtonCoordinate = app.buttons["CGUButton"].coordinateWithNormalizedOffset(CGVector(dx: 0, dy: 0))
+  checkButtonCoordinate.tap()
   ```
 
-     Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
-  With Swift, struct have constructors with parameters, so no need to use external functions.
-
-- You don't need to remove observer in deinit function when iOS > 9.0 anymore
-
-   From Apple Documentation
- > In OS X 10.11 and iOS 9.0 NSNotificationCenter and NSDistributedNotificationCenter will no longer send notifications to registered observers that may be deallocated[...] This means that observers are not required to un-register in their deallocation method.
-
-
-
-- Use **private** and **let** when possible. What I do is to make my properties/functions **private** and **let** by default and when the compiler yell, I change it :-)
-
-- To check if a number is between a range, **don't do**
- ```swift
-if number >=0 && number <= 100
-```
- **Use** range and news operators **instead** :
- ```swift
- if 0...100 ~= number
- ```
-
-
-- Use **extension** when conforming to some protocol ( uitableview, printable, .. ) to keep a well organized code unless if that's its role.
-
-  ```swift
-  // MARK: - TableView Delegate -
-
-  extension HomeViewController: UITableViewDataSource {
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 5
-    }
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-      return 1
-    }
-
-    // etc.
-  }
-  ```  
-
-- Use **let** until Xcode yell so you can replace it with **var**
-
-- Don't do things that need frame/bounds coordinate in the viewDidLoad, because that's officialy setted on the viewWillAppear and if you try to do it before, you'll receive some informations, yes, but maybe not the last and the most relevant, because it can change after the viewDidLoad ,for example when its checking if the iPhone in on the Portrait or Landscape, if there is navigation bar, and things like that. So **don't make code that is geometry-dependent here.**
-
-- If you need the frame coordinate system, **use** ```swift self.bounds ```, **not** ```self.frame```, because bounds use its own coordinate system while self.frame use the super view coordinate system.
-
-- If you play with graphics, use **CGFloat** instead of **Float/Double**
-
-- Stanford hint : *In fact, in general, any method that has more than a dozen lines of code is probably going to be hard for readers of your code to understand (and might well betray a “less than optimal” architectural approach).*  So a possible solution will be to add sub-functions inside the main function. Don't abuse of that if you have 5 lines in your code .. :]
-
-- Don't forget to use the ```didSet/willSet``` observers appeared with swift, they can be very useful ( for IBOutlet too )
-
-- UITableView :
-  - Even if there are 10000 rows, only the visible rows are UITableViewCell, so that means that those rows will be reusable for the following rows.
-  - Use
-    ```swift
-  func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> AnyObject
-  ```
-  It takes care to reuse the row or making a copy of one of your   prototypes    from your storyboard ( so you need to have a reuseIdentifier for your prototype, because you can have not only one    row prototype )
-  - Be aware si you do network works with the cells : When the cell appear, you want to fetch data by downloading an image or data, if you scroll and get back again, and the http request just finished, you'll set the data on a cell different than the cell because the cell are reusable, so when scrolling it will reuse the cell to display others rows informations
-- Where can you store your reuse identifier for your cells ?
- ```swift
-  private struct Storyboard {
-    static let cellReuseIdenifier = "PersonCell"
-  }
-  ```
-
-- Use typealias when closures are referenced in multiple places
-  ```swift
-  typealias CoolClosure = (foo: Int) -> Bool
-  ```
-
-- When clearing out your UILabel, put a " " (space) in there, not nil or "" (empty string), otherwise your UILabel will shrink down vertically, shifting your UI around.
-
-- When accessing the x, y, width, or height of a CGRect, prefer using rect.width, rect.minY, etc.. that are swift extension and that by default standardize values instead of direct struct member access.
-From Apple's CGGeometry reference:
->All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
-
-  For example :
-
-    ```swift
-    let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
-
-    rect.size.width // return -40 // Not good, negative value
-    rect.width // return 40 // OK
-
-    rect.origin.y // return 0.0 // Not OK
-    rect.minY // return -40.0 // OK
-    ```
-
-## Things to know about
-
-- ### User Defined Runtime Attribute
-You can use the  from your storyboard to init some properties of your object instead of doing it programmatically.
-
-   So, you can for example replace :
-  ```swift
-  self.debtView.layer.maskToBounds = true
-  self.debtView.layer.cornerRadius = 5.0
-  ```
-  by
-
-     <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
-
-- ### Global and local variable observers
+  #### Global and local variable observers
 You can add variable observers in any types of variable, even __Global__ and __local__.
    Let's see an example :
 
@@ -150,39 +62,108 @@ You can add variable observers in any types of variable, even __Global__ and __l
   }
   ```
 
-- ### Xcode UI Testing
- - ** Wait for an object to appear ( ex : animation ) **
+### User Defined Runtime Attribute
+  You can use the from your storyboard to init some properties of your object instead of doing it programmatically.
 
-    At the beginning, I encountered issues when checking if a particular button existed or not,
-    simply because it was faded in ( **animation ) and so not directly present in the view.
-    One interesting solution I found is this one :
+     So, you can for example replace :
+    ```swift
+    self.debtView.layer.maskToBounds = true
+    self.debtView.layer.cornerRadius = 5.0
+    ```
+    by
 
-     ```swift
-     let enableButton = app.buttons[NSLocalizedString("Enable", comment: "foo")]
-     expectationForPredicate(NSPredicate(format: "exists == true"), evaluatedWithObject: enableButton, handler: nil)
-    waitForExpectationsWithTimeout(3, handler: nil)
-      ```
+   <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
 
-      It'll wait for 3 seconds until the predicate is true (in our case, the button exists, so until the button appear).
 
-      After the elapsed time, of it's not true, it'll execute the XCTAssert `exists == true`.
+## Good practices in Swift and iOS
 
-  - ** Tap at coordinate **
+#### Native Swift struct initializers
+Use the native Swift struct initializers rather than use CGGeometry functions.
 
-   <img src="./assets/uitest-coordinates.png" alt="Runtime Attribute Storyboard" width="250"/>
-
-   Clicking on the text button redirect me another view, and clicking on the square check it.
-   What I wanted to do was just checking the button, so just tapping on the little square on the left. I did it with :
-
+   So replace :
    ```swift
-   let checkButtonCoordinate = app.buttons["CGUButton"].coordinateWithNormalizedOffset(CGVector(dx: 0, dy: 0))
-  checkButtonCoordinate.tap()
+  let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
   ```
+  by
+  ```swift
+  let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
+  ```
+
+     Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
+  With Swift, struct have constructors with parameters, so no need to use external functions.
+
+#### No need to remove observer when iOS > 9.0
+You don't need to remove observer in deinit function when iOS > 9.0 anymore
+
+   From Apple Documentation
+ > In OS X 10.11 and iOS 9.0 NSNotificationCenter and NSDistributedNotificationCenter will no longer send notifications to registered observers that may be deallocated[...] This means that observers are not required to un-register in their deallocation method.
+
+#### Range operator
+To check if a number is between a range, **don't do**
+ ```swift
+if number >=0 && number <= 100
+```
+ **Use** range and news operators **instead** :
+ ```swift
+ if 0...100 ~= number
+ ```
+
+#### Extensions
+Use **extension** when conforming to some protocol ( uitableview, printable, .. ) to keep a well organized code unless if that's its role.
+
+  ```swift
+  // MARK: - TableView Delegate -
+
+  extension HomeViewController: UITableViewDataSource {
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return 5
+    }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+      return 1
+    }
+
+    // etc.
+  }
+  ```  
+
+#### Tips for using let
+Use **let** until Xcode yell so you can replace it with **var**
+
+#### Manipulate frame/bounds but not everywhere
+Don't do things that need frame/bounds coordinate in the viewDidLoad, because that's officialy setted on the viewWillAppear and if you try to do it before, you'll receive some informations, yes, but maybe not the last and the most relevant, because it can change after the viewDidLoad ,for example when its checking if the iPhone in on the Portrait or Landscape, if there is navigation bar, and things like that. So **don't make code that is geometry-dependent here.**
+
+ If you need the frame coordinate system, **use** ```swift self.bounds ```, **not** ```self.frame```, because bounds use its own coordinate system while self.frame use the super view coordinate system.
+
+#### Typealias for a argument/return type
+Use typealias when closures are referenced in multiple places
+  ```swift
+  typealias CoolClosure = (foo: Int) -> Bool
+  ```
+
+#### CGRect and negative values
+When accessing the x, y, width, or height of a CGRect, prefer using rect.width, rect.minY, etc.. that are swift extension and that by default standardize values instead of direct struct member access.
+From Apple's CGGeometry reference:
+>All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
+
+  For example :
+
+    ```swift
+    let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
+
+    rect.size.width // return -40,  Not good, negative value
+    rect.width      // return 40,  OK
+
+    rect.origin.y   // return 0.0,  Not OK
+    rect.minY       // return -40.0,  OK
+    ```
 
 ## Good practices and hint in iOS Project in general
 
+- Stanford hint : *In fact, in general, any method that has more than a dozen lines of code is probably going to be hard for readers of your code to understand (and might well betray a “less than optimal” architectural approach).*  So a possible solution will be to add sub-functions inside the main function. Don't abuse of that if you have 5 lines in your code .. :]
 
-- Use **pragma mark** to organise your code
+- Use **pragma mark** to organize your code
    ```swift
 // MARK: - UITableViewDataSource Delegate -
 ```
