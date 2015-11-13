@@ -5,7 +5,8 @@ You'll find there some good practices/hints I think are very relevant and that w
 ## Interesting things to know about
 
 ### Xcode UI Testing
- #### Wait for an object to appear ( ex : animation )
+ 
+#### Wait for an object to appear ( ex : animation )
 
     At the beginning, I encountered issues when checking if a particular button existed or not,
     simply because it was faded in ( **animation ) and so not directly present in the view.
@@ -20,7 +21,7 @@ You'll find there some good practices/hints I think are very relevant and that w
       It'll wait for 3 seconds until the predicate is true (in our case, the button exists, so until the button appear).
       After the elapsed time, of it's not true, it'll execute the XCTAssert `exists == true`.
 
-  #### Tap at specific coordinates
+#### Tap at specific coordinates
 
    <img src="./assets/uitest-coordinates.png" alt="Runtime Attribute Storyboard" width="250"/>
 
@@ -32,7 +33,7 @@ You'll find there some good practices/hints I think are very relevant and that w
   checkButtonCoordinate.tap()
   ```
 
-  #### Global and local variable observers
+#### Global and local variable observers
 You can add variable observers in any types of variable, even __Global__ and __local__.
    Let's see an example :
 
