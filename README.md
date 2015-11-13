@@ -2,6 +2,25 @@
 
 You'll find there some good practices/hints I think are very relevant and that was good for me : They can come from people I worked with, from courses/tutorials I followed, and also from others guidelines and good practices authors.
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [iOS-Swift-Good-Practices](#)
+	- [Interesting things to know about](#)
+		- [Xcode UI Testing](#)
+			- [Wait for an object to appear ( ex : animation )](#)
+			- [Tap at specific coordinates](#)
+			- [Global and local variable observers](#)
+		- [User Defined Runtime Attribute](#)
+	- [Good practices in Swift and iOS](#)
+			- [Native Swift struct initializers](#)
+			- [No need to remove observer when iOS > 9.0](#)
+			- [Range operator](#)
+			- [Extensions](#)
+			- [Tips for using let](#)
+			- [Typealias for a argument/return type](#)
+			- [CGRect and negative values](#)
+	- [Good practices and hint in iOS Project in general](#)
+	
 ## Interesting things to know about
 
 ### Xcode UI Testing
