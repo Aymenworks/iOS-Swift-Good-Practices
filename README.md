@@ -117,21 +117,21 @@ if number >=0 && number <= 100
 Use **extension** when conforming to some protocol ( uitableview, printable, .. ) to keep a well organized code unless if that's its role.
 
   ```swift
-  // MARK: - TableView Delegate -
+ // MARK: - TableView Delegate -
 
-  extension HomeViewController: UITableViewDataSource {
+ extension HomeViewController: UITableViewDataSource {
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 5
-    }
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-      return 1
-    }
-
-    // etc.
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 5
   }
-  ```  
+
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 1
+  }
+
+  // etc.
+ }
+ ```  
 
 #### Tips for using let
 Use **let** until Xcode yell so you can replace it with **var**
