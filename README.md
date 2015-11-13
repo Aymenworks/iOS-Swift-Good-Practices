@@ -5,7 +5,7 @@ You'll find there some good practices/hints I think are very relevant and that w
 ## Table of Contents 
 
 * [Interesting things to know about](#)
-  * [Xcode UI Testing](#)
+  * [Xcode UI Testing](#xcode-ui-testing)
     * [Wait for an object to appear ( ex : animation )](#)
     * [Tap at specific coordinates](#)
     * [Global and local variable observers](#)
