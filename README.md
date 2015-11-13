@@ -40,40 +40,40 @@ You can add variable observers in any types of variable, even __Global__ and __l
    Let's see an example :
 
   ```swift
-  var numberOfPerson = 0 {
-    didSet {
+ var numberOfPerson = 0 {
+   didSet {
     // Do something
-    }
-  }
+   }
+ }
 
-  class Person {
-    var name = "Anonyme" {
-      didSet {
-        // Do something else
-      }
-    }
+ class Person {
+   var name = "Anonyme" {
+     didSet {
+       // Do something else
+     }
+   }
 
-    func showResume() {
-      var resume: String? {
-        didSet {
-          // Do what you need to do
-        }
-      }
+   func showResume() {
+     var resume: String? {
+       didSet {
+         // Do what you need to do
+       }
+     }
 
-      // ...
-    }
-  }
-  ```
+     // ...
+   }
+ }
+ ```
 
 ### User Defined Runtime Attribute
   You can use the from your storyboard to init some properties of your object instead of doing it programmatically.
 
    So, you can for example, replace :
    
-   ```swift
-   self.debtView.layer.maskToBounds = true
-   self.debtView.layer.cornerRadius = 5.0
-   ```
+  ```swift
+  self.debtView.layer.maskToBounds = true
+  self.debtView.layer.cornerRadius = 5.0
+  ```
    
    by
 
