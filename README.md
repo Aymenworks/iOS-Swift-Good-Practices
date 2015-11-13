@@ -87,11 +87,11 @@ Use the native Swift struct initializers rather than use CGGeometry functions.
 
    So replace :
    ```swift
-  let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
+ let myButton = UIButton(frame: CGRectMake(0.0, 0.0, self.bounds.width / 2, self.bounds.height))
   ```
   by
   ```swift
-  let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
+ let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
   ```
 
   Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
