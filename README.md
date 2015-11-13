@@ -30,7 +30,7 @@ You'll find there some good practices/hints I think are very relevant and that w
    What I wanted to do was just checking the button, so just tapping on the little square on the left. I did it with :
 
    ```swift
-   let checkButtonCoordinate = app.buttons["CGUButton"].coordinateWithNormalizedOffset(CGVector(dx: 0, dy: 0))
+  let checkButtonCoordinate = app.buttons["CGUButton"].coordinateWithNormalizedOffset(CGVector(dx: 0, dy: 0))
   checkButtonCoordinate.tap()
   ```
 
