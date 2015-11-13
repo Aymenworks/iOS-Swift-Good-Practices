@@ -68,7 +68,7 @@ You can add variable observers in any types of variable, even __Global__ and __l
 ### User Defined Runtime Attribute
   You can use the from your storyboard to init some properties of your object instead of doing it programmatically.
 
-     So, you can for example replace :
+   So, you can for example replace :
     ```swift
     self.debtView.layer.maskToBounds = true
     self.debtView.layer.cornerRadius = 5.0
@@ -136,9 +136,9 @@ Use **let** until Xcode yell so you can replace it with **var**
 
 #### Typealias for a argument/return type
 Use typealias when closures are referenced in multiple places
-  ```swift
-  typealias CoolClosure = (foo: Int) -> Bool
-  ```
+ ```swift
+ typealias CoolClosure = (foo: Int) -> Bool
+ ```
 
 #### CGRect and negative values
 When accessing the x, y, width, or height of a CGRect, prefer using rect.width, rect.minY, etc.. that are swift extension and that by default standardize values instead of direct struct member access.
@@ -148,13 +148,13 @@ From Apple's CGGeometry reference:
   For example :
 
   ```swift
-    let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
+ let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
 
-    rect.size.width // return -40,  Not good, negative value
-    rect.width      // return 40,  OK
+ rect.size.width // return -40,  Not good, negative value
+ rect.width      // return 40,  OK
 
-    rect.origin.y   // return 0.0,  Not OK
-    rect.minY       // return -40.0,  OK
+ rect.origin.y   // return 0.0,  Not OK
+ rect.minY       // return -40.0,  OK
   ```
 
 ## Good practices and hint in iOS Project in general
