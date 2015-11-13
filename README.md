@@ -26,6 +26,7 @@ You'll find there some good practices/hints I think are very relevant and that w
    <img src="./assets/uitest-coordinates.png" alt="Runtime Attribute Storyboard" width="250"/>
 
    Clicking on the text button redirect me another view, and clicking on the square check it.
+   
    What I wanted to do was just checking the button, so just tapping on the little square on the left. I did it with :
 
    ```swift
@@ -35,6 +36,7 @@ You'll find there some good practices/hints I think are very relevant and that w
 
 #### Global and local variable observers
 You can add variable observers in any types of variable, even __Global__ and __local__.
+   
    Let's see an example :
 
   ```swift
@@ -90,7 +92,7 @@ Use the native Swift struct initializers rather than use CGGeometry functions.
   let myButton = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: self.bounds.width / 2, height: self.bounds.height))
   ```
 
-     Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
+  Because in Objective-c, we used to use CGRectMake to get a CGRect struct because for   initializing a strut, it is necessary ( as in C if my memory is good ) to create first the structure, and then assigning value to variables.
   With Swift, struct have constructors with parameters, so no need to use external functions.
 
 #### No need to remove observer when iOS > 9.0
@@ -104,7 +106,7 @@ To check if a number is between a range, **don't do**
  ```swift
 if number >=0 && number <= 100
 ```
- **Use** range and news operators **instead** :
+ Use range and news operators **instead** :
  ```swift
  if 0...100 ~= number
  ```
@@ -132,11 +134,6 @@ Use **extension** when conforming to some protocol ( uitableview, printable, .. 
 #### Tips for using let
 Use **let** until Xcode yell so you can replace it with **var**
 
-#### Manipulate frame/bounds but not everywhere
-Don't do things that need frame/bounds coordinate in the viewDidLoad, because that's officialy setted on the viewWillAppear and if you try to do it before, you'll receive some informations, yes, but maybe not the last and the most relevant, because it can change after the viewDidLoad ,for example when its checking if the iPhone in on the Portrait or Landscape, if there is navigation bar, and things like that. So **don't make code that is geometry-dependent here.**
-
- If you need the frame coordinate system, **use** ```swift self.bounds ```, **not** ```self.frame```, because bounds use its own coordinate system while self.frame use the super view coordinate system.
-
 #### Typealias for a argument/return type
 Use typealias when closures are referenced in multiple places
   ```swift
@@ -150,7 +147,7 @@ From Apple's CGGeometry reference:
 
   For example :
 
-    ```swift
+  ```swift
     let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
 
     rect.size.width // return -40,  Not good, negative value
@@ -158,7 +155,7 @@ From Apple's CGGeometry reference:
 
     rect.origin.y   // return 0.0,  Not OK
     rect.minY       // return -40.0,  OK
-    ```
+  ```
 
 ## Good practices and hint in iOS Project in general
 
