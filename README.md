@@ -2,7 +2,7 @@
 
 You'll find there some good practices/hints I think are very relevant and that was good for me : They can come from people I worked with, from courses/tutorials I followed, and also from others guidelines and good practices authors.
 
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+## Table of Contents 
 
 - [iOS-Swift-Good-Practices](#)
 	- [Interesting things to know about](#)
