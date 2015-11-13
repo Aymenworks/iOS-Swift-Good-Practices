@@ -94,21 +94,22 @@ if number >=0 && number <= 100
 From Apple's CGGeometry reference:
 >All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
 
-For example :
+  For example :
 
-  ```swift
-  let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
+    ```swift
+    let rect = CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: -40.0, height: -40.0))
 
-  rect.size.width // return -40 // Not good, negative value
-  rect.width // return 40 // OK
+    rect.size.width // return -40 // Not good, negative value
+    rect.width // return 40 // OK
 
-  rect.origin.y // return 0.0 // Not OK
-  rect.minY // return -40.0 // OK
-  ```
+    rect.origin.y // return 0.0 // Not OK
+    rect.minY // return -40.0 // OK
+    ```
 
 ## Things to know about
 
-- You can use the **User Defined Runtime Attribute** from your storyboard to init some properties of your object instead of doing it programmatically.
+- ### User Defined Runtime Attribute
+You can use the  from your storyboard to init some properties of your object instead of doing it programmatically.
 
    So, you can for example replace :
   ```swift
@@ -119,8 +120,8 @@ For example :
 
      <img src="./assets/runtimeAttributeStoryboard.png" alt="Runtime Attribute Storyboard" width="250"/>
 
-- You can add variable observers in any types of variable, even __Global__ and __local__.
-
+- ### Global and local variable observers
+You can add variable observers in any types of variable, even __Global__ and __local__.
    Let's see an example :
 
   ```swift
@@ -138,7 +139,7 @@ For example :
     }
 
     func showResume() {
-      var resume = "" {
+      var resume: String? {
         didSet {
           // Do what you need to do
         }
@@ -147,6 +148,35 @@ For example :
       // ...
     }
   }
+  ```
+
+- ### Xcode UI Testing
+ - ** Wait for an object to appear ( ex : animation ) **
+
+    At the beginning, I encountered issues when checking if a particular button existed or not,
+    simply because it was faded in ( **animation ) and so not directly present in the view.
+    One interesting solution I found is this one :
+
+     ```swift
+     let enableButton = app.buttons[NSLocalizedString("Enable", comment: "foo")]
+     expectationForPredicate(NSPredicate(format: "exists == true"), evaluatedWithObject: enableButton, handler: nil)
+    waitForExpectationsWithTimeout(3, handler: nil)
+      ```
+
+      It'll wait for 3 seconds until the predicate is true (in our case, the button exists, so until the button appear).
+
+      After the elapsed time, of it's not true, it'll execute the XCTAssert `exists == true`.
+
+  - ** Tap at coordinate **
+
+   <img src="./assets/uitest-coordinates.png" alt="Runtime Attribute Storyboard" width="250"/>
+
+   Clicking on the text button redirect me another view, and clicking on the square check it.
+   What I wanted to do was just checking the button, so just tapping on the little square on the left. I did it with :
+
+   ```swift
+   let checkButtonCoordinate = app.buttons["CGUButton"].coordinateWithNormalizedOffset(CGVector(dx: 0, dy: 0))
+  checkButtonCoordinate.tap()
   ```
 
 ## Good practices and hint in iOS Project in general
