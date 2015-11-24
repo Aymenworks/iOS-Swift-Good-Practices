@@ -26,18 +26,18 @@ You'll find there some good practices/hints I think are very relevant and that w
  
 #### Wait for an object to appear if animations
 
-  At the beginning, I encountered issues when checking if a particular button existed or not,
+  At the beginning, I encountered issues when checking if a particular button is hittable or not,
   simply because it was faded in ( animation ) and so not directly present in the view.
   One interesting solution I found is this one :
 
  ```swift
 let enableButton = app.buttons[NSLocalizedString("Enable", comment: "foo")]
-expectationForPredicate(NSPredicate(format: "exists == true"), evaluatedWithObject: enableButton, handler: nil)
+expectationForPredicate(NSPredicate(format: "hittable == true"), evaluatedWithObject: enableButton, handler: nil)
 waitForExpectationsWithTimeout(3, handler: nil)
  ```
 
- It'll wait for 3 seconds until the predicate is true (in our case, the button exists, so until the button appear).
- After the elapsed time, of it's not true, it'll execute the XCTAssert `exists == true`.
+ It'll wait for 3 seconds until the predicate is true (in our case, the button is hittable, so until the button appear).
+ After the elapsed time, of it's not true, it'll execute the XCTAssert `hittable == true`.
 
 #### Tap at specific coordinates
 
